@@ -1,0 +1,1 @@
+En esta carpeta va la configuración de la DB y otras cosas

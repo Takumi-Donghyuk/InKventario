@@ -1,0 +1,2 @@
+Base de datos contiene las queries usadas en la base de datos para crear
+las tablas o entidades

@@ -1,0 +1,32 @@
+# Ignorar dependencias de Node
+frontend/node_modules/
+backend/node_modules/
+
+# Ignorar archivos de build o dist
+frontend/dist/
+frontend/build/
+backend/dist/
+backend/build/
+
+# Archivos de configuración locales
+.env
+*.env
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de base de datos temporales
+database/*.db
+database/*.sqlite
+database/dumps/
+
+# Otros
+.idea/
+.vscode/

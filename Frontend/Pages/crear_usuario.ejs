@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex flex-col items-center min-h-screen p-4">
+    <!-- Botón de menú principal -->
+    <div class="w-full max-w-md mb-6">
+        <a href="/admin" class="block text-center bg-purple-600 text-white font-semibold py-2 px-4 rounded hover:bg-purple-700 transition">
+            Volver al Panel Principal
+        </a>
+    </div>
+
+    <!-- Formulario -->
+    <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-8 mb-7">
+         <h2 class="text-2xl font-bold mb-4 text-center text-gray-700">Crear Usuario</h2>
+    </div>
+    <form action="/usuarios/crear" method="POST" class="space-y-4">
+         <div>
+            <label for="nombre" class="block text-gray-600 mb-1">Nombre *</label>
+            <input type="text" name="nombre" required
+            class="w-full border border-gray-300 rounded px-3 py-2 
+            focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>    
+        
+        <div>
+                <label for="cedula" class="block text-gray-600 mb-1">Cédula *</label>
+                <input type="text" name="cedula" required
+                class="w-full border border-gray-300 rounded px-3 py-2 
+                focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+                <label for="correo" class="block text-gray-600 mb-1">Correo *</label>
+                <input type="email" name="correo" required
+                class="w-full border border-gray-300 rounded px-3 py-2 
+                focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        
+        <div>
+                <label for="telefono" class="block text-gray-600 mb-1">Teléfono *</label>
+                <input type="text" name="telefono" required
+                class="w-full border border-gray-300 rounded px-3 py-2 
+                focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+                <label for="contrasena" class="block text-gray-600 mb-1">Contraseña *</label>
+                <input type="password" name="contrasena" required
+                class="w-full border border-gray-300 rounded px-3 py-2 
+                focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+                <label for="rol" class="block text-gray-600 mb-1">Rol *</label>
+                <select name="rol" id="rol"
+                class="w-full border border-gray-300 rounded px-3 py-2 
+                focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="administrador">Administrador</option>
+                    <option value="empleado">Empleado</option>
+                </select>
+        </div>
+
+        <button type="submit"
+        class="w-full bg-purple-600 text-white py-2 
+        px-4 rounded font-semibold hover:bg-purple-700 transition">
+        Guardar
+        </button>
+    </form>
+</body>
+</html>

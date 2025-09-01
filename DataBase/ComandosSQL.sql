@@ -4,8 +4,8 @@ CREATE TABLE Usuario (
     nombre VARCHAR(50) NOT NULL,              
     cedula VARCHAR(20) NOT NULL UNIQUE,      
     correo VARCHAR(100) NOT NULL UNIQUE,     
-    telefono VARCHAR(15) NULL,                
-    contraseña VARCHAR(255) NOT NULL,         
+    telefono VARCHAR(15) NOT NULL,                
+    contrasena VARCHAR(255) NOT NULL,         
     rol VARCHAR(20) NOT NULL,                 
     estado BIT NOT NULL,                     
     fecha_creacion DATETIME NOT NULL DEFAULT GETDATE() 

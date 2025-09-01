@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Consultar Usuarios</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+<div class="flex justify-center">
+    <!-- Botón de menú principal -->
+    <div class="w-full max-w-md mb-6">
+        <a href="/admin" class="block text-center bg-purple-600 text-white font-semibold py-2 px-4 rounded hover:bg-purple-700 transition">
+            Volver al Panel Principal
+        </a>
+    </div>
+</div>
+<main class="max-w-6xl mx-auto">
+<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Lista de Usuarios</h1>
+</main>
+  <!-- Tabla -->
+  <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-purple-600 text-white">
+          <tr>
+            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Nombre</th>
+            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Correo</th>
+            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Teléfono</th>
+            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Rol</th>
+            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Fecha de creación</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% usuarios.forEach(u => { %>
+            <tr class="hover:bg-gray-100 transition">
+              <td class="px-6 py-4 whitespace-nowrap text-gray-700 font-medium text-center"><%= u.nombre %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-700 text-center"><%= u.correo %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-700 text-center"><%= u.telefono %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-700 text-center"><%= u.rol %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-700 text-center"><%= u.fecha_creacion %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+    </table>
+  </div>  
+</body>
+</html>

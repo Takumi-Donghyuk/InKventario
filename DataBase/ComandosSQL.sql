@@ -16,6 +16,7 @@ CREATE TABLE Categoria (
     id_categoria INT IDENTITY(1,1) PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     usuarioId INT NOT NULL,
+    descripcion VARCHAR(MAX) NULL,
     FOREIGN KEY (usuarioId) REFERENCES Usuario(id_usuario)
 );
 
@@ -24,6 +25,7 @@ CREATE TABLE Marca (
     id_marca INT IDENTITY(1,1) PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     usuarioId INT NOT NULL,
+    descripcion VARCHAR(MAX) NULL,
     FOREIGN KEY (usuarioId) REFERENCES Usuario(id_usuario)
 );
 
@@ -48,6 +50,7 @@ CREATE TABLE Producto (
     marcaId INT NOT NULL,
     proveedorId INT NOT NULL,
     usuarioId INT NOT NULL,
+    url_imagen NVARCHAR(1000) NOT NULL DEFAULT '',
     FOREIGN KEY (categoriaId) REFERENCES Categoria(id_categoria),
     FOREIGN KEY (marcaId) REFERENCES Marca(id_marca),
     FOREIGN KEY (proveedorId) REFERENCES Proveedor(id_proveedor),

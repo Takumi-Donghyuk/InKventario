@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar marca con id</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-yellow-50 to-yellow-200 min-h-screen flex flex-col items-center p-6">
+
+    <!-- Botón de regreso -->
+    <div class="w-full max-w-md mb-6">
+        <a href="/marcas/editar" 
+           class="block text-center bg-yellow-400 text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-yellow-500 transition-all transform hover:scale-105">
+           ⬅ Volver a la lista de marcas
+        </a>
+    </div>
+
+    <div class="w-full max-w-2xl bg-yellow-50 shadow-xl rounded-3xl p-10 relative overflow-hidden">
+        <!-- Icono decorativo grande -->
+        <div class="absolute -top-10 -right-10 opacity-20">
+            <svg class="w-40 h-40 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+                <rect x="10" y="30" width="44" height="20" rx="2" ry="2" fill="#f1c40f"/>
+                <rect x="14" y="26" width="36" height="6" rx="1" ry="1" fill="#e67e22"/>
+                <path d="M16 26v-6h32v6" fill="#3498db"/>
+                <circle cx="32" cy="15" r="8" fill="#2ecc71"/>
+            </svg>
+        </div>
+
+        <h1 class="text-3xl font-extrabold mb-8 text-center text-yellow-800">Editar Marca</h1>
+
+        <form action="/marcas/editar/<%= marca.id_marca %>" method="POST" class="space-y-6">
+            
+            <div>
+                <label for="nombre" class="block text-yellow-800 mb-2 font-semibold">Nombre *</label>
+                <input type="text" name="nombre" value="<%= marca.nombre %>" required
+                       class="w-full border border-yellow-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-yellow-50" />
+            </div>
+
+            <div>
+                <label for="descripcion" class="block text-yellow-800 mb-2 font-semibold">Descripción (opcional)</label>
+                <textarea name="descripcion" rows="4"
+                          class="w-full border border-yellow-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-yellow-50"><%= marca.descripcion %></textarea>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-yellow-400 hover:bg-yellow-500 text-white py-3 px-4 rounded-2xl font-bold shadow-lg transition-all transform hover:scale-105">
+                Actualizar Marca
+            </button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar proveedor con id</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-orange-50 to-orange-200 min-h-screen flex flex-col items-center p-6">
+
+    <!-- Botón de regreso -->
+    <div class="w-full max-w-md mb-6">
+        <a href="/proveedores/editar" 
+           class="block text-center bg-orange-500 text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-orange-600 transition-all transform hover:scale-105">
+           ⬅ Volver a la lista de proveedores
+        </a>
+    </div>
+
+    <div class="w-full max-w-2xl bg-orange-50 shadow-xl rounded-3xl p-10 relative overflow-hidden">
+        <!-- Icono decorativo grande -->
+        <div class="absolute -top-10 -right-10 opacity-20">
+            <svg class="w-40 h-40 text-orange-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+                <circle cx="32" cy="16" r="12" fill="#f39c12"/>
+                <path d="M16 52c0-8 16-8 16-8s16 0 16 8v4H16v-4z" fill="#d35400"/>
+                <rect x="42" y="28" width="14" height="20" rx="2" ry="2" fill="#e67e22"/>
+                <line x1="44" y1="32" x2="54" y2="32" stroke="#f1c40f" stroke-width="2"/>
+                <line x1="44" y1="38" x2="54" y2="38" stroke="#f1c40f" stroke-width="2"/>
+                <line x1="44" y1="44" x2="54" y2="44" stroke="#f1c40f" stroke-width="2"/>
+            </svg>
+        </div>
+
+        <h1 class="text-3xl font-extrabold mb-8 text-center text-orange-800">Editar proveedor</h1>
+
+        <form action="/proveedores/editar/<%= proveedor.id_proveedor %>" method="POST" class="space-y-6">
+            
+            <div>
+                <label for="nombre" class="block text-orange-800 mb-2 font-semibold">Nombre *</label>
+                <input type="text" name="nombre" value="<%= proveedor.nombre %>" required
+                       class="w-full border border-orange-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-orange-50" />
+            </div>
+
+            <div>
+                <label for="telefono" class="block text-orange-800 mb-2 font-semibold">Teléfono</label>
+                <input type="text" name="telefono" value="<%= proveedor.telefono %>"
+                       class="w-full border border-orange-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-orange-50" />
+            </div>
+
+            <div>
+                <label for="correo" class="block text-orange-800 mb-2 font-semibold">Correo</label>
+                <input type="email" name="correo" value="<%= proveedor.correo %>"
+                       class="w-full border border-orange-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-orange-50" />
+            </div>
+
+            <div>
+                <label for="direccion" class="block text-orange-800 mb-2 font-semibold">Dirección</label>
+                <textarea name="direccion" rows="3"
+                          class="w-full border border-orange-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-orange-50"><%= proveedor.direccion %></textarea>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-2xl font-bold shadow-lg transition-all transform hover:scale-105">
+                Actualizar proveedor
+            </button>
+        </form>
+    </div>
+
+</body>
+</html>

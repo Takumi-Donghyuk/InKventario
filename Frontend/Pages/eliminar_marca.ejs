@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Eliminar marca</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-gradient-to-b from-yellow-50 to-yellow-200 min-h-screen p-6">
+
+  <!-- Botón de regreso -->
+  <div class="w-full max-w-2xl mb-6 text-center">
+    <a href="/admin" 
+       class="inline-block bg-yellow-400 text-white px-5 py-2 rounded-full 
+       shadow-lg hover:bg-yellow-500 transition-all transform hover:scale-105">
+       ⬅ Volver al panel principal
+    </a>
+  </div>
+
+  <main class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-extrabold text-yellow-800 mb-6 text-center">Lista de marcas para eliminar</h1>
+  </main>
+
+  <!-- Tabla -->
+  <div class="bg-yellow-50 shadow-lg rounded-3xl w-full overflow-hidden">
+    <table class="table-auto w-full divide-y divide-yellow-300">
+      <thead class="bg-yellow-400 text-white">
+        <tr>
+          <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Nombre</th>
+          <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Descripción</th>
+          <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Acción</th>
+        </tr>
+      </thead>
+      <tbody class="bg-yellow-50 divide-y divide-yellow-200">
+        <% marcas.forEach(m => { %>
+          <tr class="hover:bg-yellow-100 transition">
+            <td class="px-6 py-4 text-yellow-800 font-medium text-center break-words"><%= m.nombre %></td>
+            <td class="px-6 py-4 text-yellow-800 text-center break-words"><%= m.descripcion %></td>
+            <td class="px-6 py-4 text-center">
+              <button onclick="eliminarMarca(<%= m.id_marca %>)"
+              class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded 
+              font-semibold transition">
+              Eliminar
+              </button>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+
+<script>
+async function eliminarMarca(id) {
+  const resultado = await Swal.fire({
+    title: '¿Estás seguro?',
+    text: "¡No podrás revertir esto!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  });
+
+  if (!resultado.isConfirmed) return; 
+  try {
+    const res = await fetch(`/marcas/eliminar/${id}`, {
+      method: 'DELETE'
+    });
+
+    if (res.ok) {
+      await Swal.fire({
+        icon: 'success',
+        title: '¡Eliminado!',
+        text: 'Marca eliminada correctamente',
+        timer: 1500,
+        showConfirmButton: false
+      });
+      window.location.href = '/admin';
+    } else {
+      const msg = await res.text();
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: msg
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Error al eliminar la marca'
+    });
+  }
+}
+</script>
+
+</html>

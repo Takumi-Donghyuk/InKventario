@@ -11,6 +11,7 @@ function adminMiddleware(req, res, next) {
 
 // Menú principal del admin
 router.get("/", adminMiddleware, (req, res) => {
+    console.log("Usuario en sesión:", req.session.user);
   res.render("menu_admin", { user: req.session.user });
 });
 

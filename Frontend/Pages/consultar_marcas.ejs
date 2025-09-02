@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Consultar marcas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-yellow-50 to-yellow-200 min-h-screen p-6">
+
+  <!-- Botón de regreso -->
+  <div class="w-full max-w-2xl mb-6 flex justify-center">
+    <a href="/admin" 
+       class="bg-yellow-400 text-white px-6 py-2 rounded-full 
+       shadow-lg hover:bg-yellow-500 transition-all transform hover:scale-105">
+       ⬅ Volver al panel principal
+    </a>
+  </div>
+
+  <main class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-extrabold text-yellow-800 mb-10 text-center">Lista de marcas</h1>
+
+    <!-- Lista de marcas estilo “tarjetas limpias” -->
+    <div class="space-y-6">
+      <% marcas.forEach(marca => { %>
+      <div class="flex items-center bg-yellow-50 rounded-3xl shadow-lg p-6 hover:shadow-2xl transition transform hover:scale-105">
+        
+        <!-- Icono de marca -->
+        <svg class="w-16 h-16 text-yellow-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+          <rect x="10" y="30" width="44" height="20" rx="2" ry="2" fill="#f1c40f"/>
+          <rect x="14" y="26" width="36" height="6" rx="1" ry="1" fill="#e67e22"/>
+          <path d="M16 26v-6h32v6" fill="#3498db"/>
+          <circle cx="32" cy="15" r="8" fill="#2ecc71"/>
+        </svg>
+
+        <!-- Información de la marca -->
+        <div class="ml-6">
+          <h2 class="text-xl font-bold text-yellow-800"><%= marca.nombre %></h2>
+          <p class="text-yellow-700 mt-1">
+            <%= marca.descripcion || 'Sin descripción' %>
+          </p>
+        </div>
+
+      </div>
+      <% }) %>
+    </div>
+
+  </main>
+
+</body>
+</html>

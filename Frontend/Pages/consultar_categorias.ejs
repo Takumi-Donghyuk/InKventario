@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Consultar categorías</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+
+  <!-- Botón de regreso -->
+<div class="w-full max-w-2xl mb-6 flex justify-center">
+  <a href="/admin" 
+     class="bg-emerald-500 text-white px-5 py-2 rounded-lg 
+     shadow hover:bg-emerald-600 transition">
+     ⬅ Volver al panel principal
+  </a>
+</div>
+  
+
+  <main class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Lista de categorías</h1>
+
+    <!-- Grid de categorías -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% categorias.forEach(cat => { %>
+      <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition">
+        <div class="flex items-center mb-4">
+          <div class="bg-emerald-500 text-white rounded-full w-10 h-10 flex items-center 
+          justify-center font-bold text-lg shadow hover:bg-emerald-600 transition">
+            <%= cat.nombre.charAt(0).toUpperCase() %>
+          </div>
+          <h2 class="ml-4 text-xl font-semibold text-gray-800"><%= cat.nombre %></h2>
+        </div>
+        <p class="text-gray-600">
+          <%= cat.descripcion || 'Sin descripción' %>
+        </p>
+      </div>
+      <% }) %>
+    </div>
+
+  </main>
+
+</body>
+</html>

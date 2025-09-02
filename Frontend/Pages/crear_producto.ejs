@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear producto</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-red-50 to-red-100 flex flex-col items-center min-h-screen p-6">
+
+  <!-- Botón de regreso -->
+  <div class="w-full max-w-2xl mb-6 text-center">
+    <a href="/empleado" 
+       class="inline-block bg-red-500 text-white px-6 py-2 rounded-full 
+       shadow-lg hover:bg-red-600 transition-all transform hover:scale-105">
+       ⬅ Volver al panel principal
+    </a>
+  </div>
+
+  <!-- Formulario estilo “panel flotante 3D con sombras y hover” -->
+  <div class="w-full max-w-3xl bg-red-50 border-4 border-red-500 rounded-3xl p-12 shadow-2xl transform hover:scale-105 transition-transform relative overflow-hidden">
+    
+    <!-- Fondo decorativo abstracto -->
+    <div class="absolute -top-20 -right-20 w-60 h-60 bg-red-200 rounded-full opacity-20 animate-pulse"></div>
+    <div class="absolute -bottom-16 -left-16 w-72 h-72 bg-red-300 rounded-full opacity-10 animate-pulse"></div>
+
+    <!-- Encabezado con icono elegante -->
+    <div class="text-center mb-10 relative z-10">
+      <svg class="w-20 h-20 mx-auto mb-4 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="30" fill="#f87171"/>
+        <path d="M16 32h32M32 16v32" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <h2 class="text-3xl font-extrabold text-red-700">Agregar nuevo producto</h2>
+      <p class="text-red-600 mt-2">Complete los datos del producto que desea registrar</p>
+    </div>
+    <!-- Formulario -->
+    <form action="/productos/crear" method="POST" class="space-y-6 relative z-10">
+
+      <!-- Nombre -->
+      <div>
+        <label for="nombre" class="block text-red-700 font-semibold mb-2">Nombre *</label>
+        <input type="text" name="nombre" required
+               class="w-full border border-red-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-red-300 shadow-inner"
+               placeholder="Ejemplo: Producto XYZ">
+      </div>
+
+      <!-- Precio -->
+      <div>
+        <label for="precio" class="block text-red-700 font-semibold mb-2">Precio *</label>
+        <input type="number" step="0.01" name="precio" required
+               class="w-full border border-red-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-red-300 shadow-inner"
+               placeholder="Ejemplo: 99.99">
+      </div>
+
+      <!-- Cantidad -->
+      <div>
+        <label for="cantidad" class="block text-red-700 font-semibold mb-2">Cantidad *</label>
+        <input type="number" name="cantidad" required
+               class="w-full border border-red-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-red-300 shadow-inner"
+               placeholder="Ejemplo: 50">
+      </div>
+
+      <!-- Categoría -->
+      <div>
+        <label for="categoriaId" class="block text-red-700 font-semibold mb-2">Categoría *</label>
+        <select name="categoriaId" required
+                class="w-full border border-red-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-red-300 shadow-inner">
+          <option value="" disabled selected>Seleccione una categoría</option>
+          <% categorias.forEach(cat => { %>
+            <option value="<%= cat.id_categoria %>"><%= cat.nombre %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <!-- Marca -->
+      <div>
+        <label for="marcaId" class="block text-red-700 font-semibold mb-2">Marca *</label>
+        <select name="marcaId" required
+                class="w-full border border-red-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-red-300 shadow-inner">
+          <option value="" disabled selected>Seleccione una marca</option>
+          <% marcas.forEach(m => { %>
+            <option value="<%= m.id_marca %>"><%= m.nombre %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <!-- Proveedor -->
+      <div>
+        <label for="proveedorId" class="block text-red-700 font-semibold mb-2">Proveedor *</label>
+        <select name="proveedorId" required
+                class="w-full border border-red-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-red-300 shadow-inner">
+          <option value="" disabled selected>Seleccione un proveedor</option>
+          <% proveedores.forEach(p => { %>
+            <option value="<%= p.id_proveedor %>"><%= p.nombre %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <!-- URL de imagen -->
+        <div>
+            <label for="url_imagen" class="block text-red-700 font-semibold mb-2">URL de Imagen *</label>
+            <input type="url" name="url_imagen" required
+         class="w-full border border-red-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-red-300 shadow-inner"
+         placeholder="Ejemplo: https://midominio.com/imagen-producto.jpg">
+        </div>
+
+       <!-- Botón de envío -->
+      <div class="text-center">
+        <button type="submit"
+                class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105">
+          Guardar producto
+        </button>
+      </div>
+    </form>
+</div>
+</body>
+</html>

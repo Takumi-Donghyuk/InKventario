@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Eliminar producto</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-gradient-to-b from-red-50 to-red-200 min-h-screen p-6">
+
+  <!-- Botón de regreso -->
+  <div class="w-full max-w-2xl mb-6 text-center">
+    <a href="/admin" 
+       class="inline-block bg-red-500 text-white px-5 py-2 rounded-full 
+       shadow-lg hover:bg-red-600 transition-all transform hover:scale-105">
+       ⬅ Volver al panel principal
+    </a>
+  </div>
+
+  <main class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-extrabold text-red-800 mb-6 text-center">
+      Lista de productos para eliminar
+    </h1>
+  </main>
+
+  <!-- Tabla -->
+  <div class="bg-red-50 shadow-lg rounded-3xl w-full overflow-hidden">
+    <table class="table-auto w-full divide-y divide-red-300">
+      <thead class="bg-red-500 text-white">
+        <tr>
+          <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Nombre</th>
+          <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Precio</th>
+          <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Cantidad</th>
+          <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider">Acción</th>
+        </tr>
+      </thead>
+      <tbody class="bg-red-50 divide-y divide-red-200">
+        <% productos.forEach(producto => { %>
+          <tr class="hover:bg-red-100 transition">
+            <td class="px-6 py-4 text-red-800 font-medium text-center break-words"><%= producto.nombre %></td>
+            <td class="px-6 py-4 text-red-800 text-center break-words">$<%= producto.precio %></td>
+            <td class="px-6 py-4 text-red-800 text-center break-words"><%= producto.cantidad %></td>
+            <td class="px-6 py-4 text-center">
+              <button onclick="eliminarProducto(<%= producto.id_producto %>)"
+              class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded 
+              font-semibold transition">
+              Eliminar
+              </button>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+
+<script>
+async function eliminarProducto(id) {
+  const resultado = await Swal.fire({
+    title: '¿Estás seguro?',
+    text: "¡No podrás revertir esto!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  });
+
+  if (!resultado.isConfirmed) return; 
+  try {
+    const res = await fetch(`/productos/eliminar/${id}`, {
+      method: 'DELETE'
+    });
+
+    if (res.ok) {
+      await Swal.fire({
+        icon: 'success',
+        title: '¡Eliminado!',
+        text: 'Producto eliminado correctamente',
+        timer: 1500,
+        showConfirmButton: false
+      });
+      window.location.href = '/empleado';
+    } else {
+      const msg = await res.text();
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: msg
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Error al eliminar el producto'
+    });
+  }
+}
+</script>
+
+</html>

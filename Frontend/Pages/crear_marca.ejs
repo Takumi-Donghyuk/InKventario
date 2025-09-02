@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear marca</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-yellow-50 to-yellow-200 flex flex-col items-center min-h-screen p-6">
+
+  <!-- Botón de regreso -->
+  <div class="w-full max-w-2xl mb-6 text-center">
+    <a href="/admin" 
+       class="inline-block bg-yellow-400 text-white px-6 py-2 rounded-full 
+       shadow-lg hover:bg-yellow-500 transition-all transform hover:scale-105">
+       ⬅ Volver al panel principal
+    </a>
+  </div>
+
+  <!-- Formulario en estilo “panel flotante con sombra grande” -->
+  <div class="w-full max-w-2xl bg-yellow-50 border-4 border-yellow-400 rounded-3xl p-12 shadow-2xl transform hover:scale-105 transition-transform">
+    
+    <!-- Encabezado con ícono grande -->
+    <div class="text-center mb-10">
+      <svg class="w-20 h-20 mx-auto mb-4 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 64 64">
+        <rect x="10" y="30" width="44" height="20" rx="2" ry="2" fill="#f1c40f"/>
+        <rect x="14" y="26" width="36" height="6" rx="1" ry="1" fill="#e67e22"/>
+        <path d="M16 26v-6h32v6" fill="#3498db"/>
+        <circle cx="32" cy="15" r="8" fill="#2ecc71"/>
+      </svg>
+      <h2 class="text-3xl font-extrabold text-yellow-800">Crear nueva marca</h2>
+      <p class="text-yellow-700 mt-2">Agregue un nombre y, opcionalmente, una descripción</p>
+    </div>
+
+    <!-- Formulario -->
+    <form action="/marcas/crear" method="POST" class="space-y-6">
+
+      <!-- Nombre obligatorio -->
+      <div>
+        <label for="nombre" class="block text-yellow-800 font-semibold mb-2">Nombre de la marca *</label>
+        <input type="text" name="nombre" required
+               class="w-full border border-yellow-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-yellow-300 shadow-inner"
+               placeholder="Ejemplo: Norma">
+      </div>
+
+      <!-- Descripción opcional -->
+      <div>
+        <label for="descripcion" class="block text-yellow-800 font-semibold mb-2">Descripción (opcional)</label>
+        <textarea name="descripcion" rows="4"
+                  class="w-full border border-yellow-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-yellow-300 shadow-inner"
+                  placeholder="Agregue una breve descripción de la marca..."></textarea>
+      </div>
+
+      <!-- Botón de envío -->
+      <div class="text-center">
+        <button type="submit"
+                class="w-full bg-yellow-400 text-white font-bold py-3 rounded-2xl shadow-lg hover:bg-yellow-500 transition-all transform hover:scale-105">
+          Guardar marca
+        </button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

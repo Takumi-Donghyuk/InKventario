@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Modificar marca</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-yellow-50 to-yellow-200 min-h-screen p-6">
+
+  <!-- Botón de regreso -->
+  <div class="w-full max-w-2xl mb-6 flex justify-center">
+    <a href="/admin" 
+       class="bg-yellow-400 text-white px-6 py-2 rounded-full 
+       shadow-lg hover:bg-yellow-500 transition-all transform hover:scale-105">
+       ⬅ Volver al panel principal
+    </a>
+  </div>
+
+  <main class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-extrabold text-yellow-800 mb-10 text-center">
+      Lista de marcas para actualizar
+    </h1>
+
+    <!-- Tabla estilizada tipo “cards dentro de tabla fluida” -->
+    <div class="bg-yellow-50 rounded-3xl shadow-lg overflow-hidden">
+      <table class="min-w-full table-auto border-collapse">
+        <thead class="bg-yellow-400 text-white">
+          <tr>
+            <th class="px-6 py-3 text-left text-lg font-semibold uppercase tracking-wide">Nombre</th>
+            <th class="px-6 py-3 text-left text-lg font-semibold uppercase tracking-wide">Descripción</th>
+            <th class="px-6 py-3 text-center text-lg font-semibold uppercase tracking-wide">Acción</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-yellow-200">
+          <% marcas.forEach(marca => { %>
+          <tr class="hover:bg-yellow-100 transition transform hover:scale-101">
+            <!-- Nombre -->
+            <td class="px-6 py-4 flex items-center space-x-4">
+              <!-- Icono a la izquierda -->
+              <svg class="w-10 h-10 text-yellow-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+                <rect x="10" y="30" width="44" height="20" rx="2" ry="2" fill="#f1c40f"/>
+                <rect x="14" y="26" width="36" height="6" rx="1" ry="1" fill="#e67e22"/>
+                <path d="M16 26v-6h32v6" fill="#3498db"/>
+                <circle cx="32" cy="15" r="8" fill="#2ecc71"/>
+              </svg>
+              <span class="font-semibold text-yellow-800 text-lg"><%= marca.nombre %></span>
+            </td>
+
+            <!-- Descripción -->
+            <td class="px-6 py-4 text-yellow-700 text-lg">
+              <%= marca.descripcion || 'Sin descripción' %>
+            </td>
+
+            <!-- Acción -->
+            <td class="px-6 py-4 text-center">
+              <a href="/marcas/editar/<%= marca.id_marca %>"
+                 class="bg-yellow-400 text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-500 transition-all font-semibold">
+                Modificar
+              </a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+</body>
+</html>

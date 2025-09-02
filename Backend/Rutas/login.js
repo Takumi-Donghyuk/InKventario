@@ -36,6 +36,9 @@ router.post("/", async (req, res) => {
     req.session.user = {
       id: user.id_usuario,
       correo: user.correo,
+      nombre: user.nombre, 
+      telefono: user.telefono, 
+      cedula: user.cedula,
       rol: user.rol
     };
     // Redirige según el rol

@@ -13,7 +13,6 @@ const config = {
     }
 };
 
-
 const connectDB = async () => {
     try {
         await sql.connect(config);

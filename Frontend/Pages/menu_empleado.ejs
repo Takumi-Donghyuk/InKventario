@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de empleado</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../Styles/menu_admin.css">
+</head>
+<body class="flex h-screen bg-gray-100">
+  <!-- Menú lateral -->
+  <div class="w-64 bg-blue-800 screen text-white flex flex-col">
+    <!-- Logo / título -->
+    <div class="p-6 text-2xl font-bold">Papelería El Bunker</div>
+    <!-- Menú scrollable -->
+      <nav class="flex-1 flex flex-col p-4 overflow-y-auto">
+      <a href="/productos/crear" class="p-2 rounded hover:bg-blue-700 text-l">Crear Producto</a>
+       <a href="/productos" class="p-2 rounded hover:bg-blue-700 text-l">Consultar Productos</a>
+       <a href="/productos/editar" class="p-2 rounded hover:bg-blue-700 text-l">Modificar Productos</a>
+       <a href="/productos/eliminar" class="p-2 rounded hover:bg-blue-700 text-l">Eliminar Productos</a>
+       <!-- Spacer para separar el botón de logout -->
+       <div class="flex-1"></div>
+
+       <!-- Botón de Cerrar Sesión -->
+       <a href="login/logout" class="mt-6 p-2 rounded text-xl hover:bg-red-600 
+       bg-red-500 text-white text-center">    
+       Cerrar Sesión
+       </a>
+      </nav>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="flex-1 p-6">
+    <header class="bg-white shadow rounded p-4 mb-6 flex justify-between items-center">
+    <p class="text-gray-700">
+      Logueado como: <span class="font-semibold"><%= user ? user.correo : 'Invitado' %></span>
+    </p>
+    <a href="/login/logout" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded transition">
+      Salir
+    </a>
+  </header>
+    <h1 class="text-4xl font-bold mb-6 text-center">Bienvenido al Panel de Empleados</h1>
+    <h1 class="text-3xl font-bold mb-6 text-center">Señor(a) empleado(a)</h1>
+    <p class="text-xl mb-6 text-center">Seleccione una opción del menú lateral para comenzar</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Caja 1 -->  
+      <div class="bg-white shadow-lg rounded-lg p-6 text-center">
+       <h2 class="text-xl font-bold">Su nombre</h2>
+       <p class="text-xl mt-2"><%= user.nombre %></p>
+      </div>
+      <!-- Caja 2 -->  
+      <div class="bg-white shadow-lg rounded-lg p-6 text-center">
+       <h2 class="text-xl font-bold">Su número de cédula</h2>
+       <p class="text-xl mt-2"><%= user.cedula %></p>
+      </div>
+      <!-- Caja 3 -->  
+      <div class="bg-white shadow-lg rounded-lg p-6 text-center">
+        <h2 class="text-xl font-bold">Su teléfono</h2>
+        <p class="text-xl mt-2"><%= user.telefono %></p>
+      </div>
+    </div>
+    <!-- Panel de Empleado -->
+<div class="flex justify-center mt-40 space-x-96">
+  <!-- Ícono 1: Lápiz -->
+  <svg class="w-48 h-48" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+    <rect x="28" y="10" width="8" height="40" fill="#e74c3c" rx="2"/>
+    <polygon points="28,10 36,10 32,2" fill="#c0392b"/>
+    <circle cx="32" cy="52" r="4" fill="#f1c40f"/>
+  </svg>
+
+  <!-- Ícono 2: Regla -->
+  <svg class="w-48 h-48" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+    <rect x="20" y="8" width="24" height="48" fill="#9b59b6" rx="2"/>
+    <line x1="24" y1="12" x2="24" y2="52" stroke="#ffffff" stroke-width="2"/>
+    <line x1="28" y1="12" x2="28" y2="52" stroke="#ffffff" stroke-width="2"/>
+    <line x1="32" y1="12" x2="32" y2="52" stroke="#ffffff" stroke-width="2"/>
+    <line x1="36" y1="12" x2="36" y2="52" stroke="#ffffff" stroke-width="2"/>
+  </svg>
+
+  <!-- Ícono 3: Tijeras -->
+  <svg class="w-48 h-48" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+    <circle cx="22" cy="20" r="8" fill="#f39c12"/>
+    <circle cx="42" cy="44" r="8" fill="#f39c12"/>
+    <line x1="22" y1="20" x2="42" y2="44" stroke="#7f8c8d" stroke-width="4"/>
+    <line x1="42" y1="20" x2="22" y2="44" stroke="#7f8c8d" stroke-width="4"/>
+  </svg>
+</div>
+  </div>
+</body>
+</html>

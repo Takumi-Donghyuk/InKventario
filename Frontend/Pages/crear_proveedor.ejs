@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear proveedor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-orange-50 to-orange-100 flex flex-col items-center min-h-screen p-6">
+
+  <!-- Botón de regreso -->
+  <div class="w-full max-w-2xl mb-6 text-center">
+    <a href="/admin" 
+       class="inline-block bg-orange-500 text-white px-6 py-2 rounded-full 
+       shadow-lg hover:bg-orange-600 transition-all transform hover:scale-105">
+       ⬅ Volver al panel principal
+    </a>
+  </div>
+
+  <!-- Formulario estilo “panel flotante con sombra grande” -->
+  <div class="w-full max-w-2xl bg-orange-50 border-4 border-orange-500 rounded-3xl p-12 shadow-2xl transform hover:scale-105 transition-transform">
+    
+    <!-- Encabezado con ícono grande -->
+    <div class="text-center mb-10">
+      <svg class="w-20 h-20 mx-auto mb-4 text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 64 64">
+        <rect x="10" y="30" width="44" height="20" rx="2" ry="2" fill="#f39c12"/>
+        <rect x="14" y="26" width="36" height="6" rx="1" ry="1" fill="#d35400"/>
+        <path d="M16 26v-6h32v6" fill="#e67e22"/>
+        <circle cx="32" cy="15" r="8" fill="#f1c40f"/>
+      </svg>
+      <h2 class="text-3xl font-extrabold text-orange-700">Crear nuevo proveedor</h2>
+      <p class="text-orange-600 mt-2">Complete los datos del proveedor que desea agregar</p>
+    </div>
+
+    <!-- Formulario -->
+    <form action="/proveedores/crear" method="POST" class="space-y-6">
+
+      <!-- Nombre obligatorio -->
+      <div>
+        <label for="nombre" class="block text-orange-700 font-semibold mb-2">Nombre del proveedor *</label>
+        <input type="text" name="nombre" required
+               class="w-full border border-orange-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-orange-300 shadow-inner"
+               placeholder="Ejemplo: Proveedor XYZ">
+      </div>
+
+      <!-- Teléfono opcional -->
+      <div>
+        <label for="telefono" class="block text-orange-700 font-semibold mb-2">Teléfono</label>
+        <input type="text" name="telefono"
+               class="w-full border border-orange-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-orange-300 shadow-inner"
+               placeholder="Ejemplo: 3001234567">
+      </div>
+
+      <!-- Correo opcional -->
+      <div>
+        <label for="correo" class="block text-orange-700 font-semibold mb-2">Correo electrónico</label>
+        <input type="email" name="correo"
+               class="w-full border border-orange-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-orange-300 shadow-inner"
+               placeholder="Ejemplo: proveedor@correo.com">
+      </div>
+
+      <!-- Dirección opcional -->
+      <div>
+        <label for="direccion" class="block text-orange-700 font-semibold mb-2">Dirección</label>
+        <textarea name="direccion" rows="3"
+                  class="w-full border border-orange-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-orange-300 shadow-inner"
+                  placeholder="Agregue la dirección del proveedor..."></textarea>
+      </div>
+
+      <!-- Botón de envío -->
+      <div class="text-center">
+        <button type="submit"
+                class="w-full bg-orange-500 text-white font-bold py-3 rounded-2xl shadow-lg hover:bg-orange-600 transition-all transform hover:scale-105">
+          Guardar proveedor
+        </button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

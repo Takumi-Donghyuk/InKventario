@@ -1,0 +1,24 @@
+/* Estilizar scrollbar en navegadores basados en Webkit (Chrome, Edge, Safari) */
+nav::-webkit-scrollbar {
+  width: 8px; /* ancho */
+}
+
+nav::-webkit-scrollbar-track {
+  background: #1e3a8a; /* azul oscuro de fondo */
+  border-radius: 10px;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background: #3b82f6; /* azul claro */
+  border-radius: 10px;
+}
+
+nav::-webkit-scrollbar-thumb:hover {
+  background: #2563eb; /* azul más fuerte al pasar el mouse */
+}
+
+
+nav {
+  scrollbar-width: thin; /* delgado */
+  scrollbar-color: #3b82f6 #1e3a8a; /* color del pulgar y track */
+}

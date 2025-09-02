@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Modificar proveedor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-orange-50 to-orange-200 min-h-screen p-6">
+
+  <!-- Botón de regreso -->
+  <div class="w-full max-w-2xl mb-6 flex justify-center">
+    <a href="/admin" 
+       class="bg-orange-500 text-white px-6 py-2 rounded-full 
+       shadow-lg hover:bg-orange-600 transition-all transform hover:scale-105">
+       ⬅ Volver al panel principal
+    </a>
+  </div>
+
+  <main class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-extrabold text-orange-800 mb-10 text-center">
+      Lista de proveedores para actualizar
+    </h1>
+
+    <!-- Tabla estilizada tipo “cards dentro de tabla fluida” -->
+    <div class="bg-orange-50 rounded-3xl shadow-lg overflow-hidden">
+      <table class="min-w-full table-auto border-collapse">
+        <thead class="bg-orange-500 text-white">
+          <tr>
+            <th class="px-6 py-3 text-left text-lg font-semibold uppercase tracking-wide">Nombre</th>
+            <th class="px-6 py-3 text-left text-lg font-semibold uppercase tracking-wide">Teléfono</th>
+            <th class="px-6 py-3 text-left text-lg font-semibold uppercase tracking-wide">Correo</th>
+            <th class="px-6 py-3 text-left text-lg font-semibold uppercase tracking-wide">Dirección</th>
+            <th class="px-6 py-3 text-center text-lg font-semibold uppercase tracking-wide">Acción</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-orange-200">
+          <% proveedores.forEach(proveedor => { %>
+          <tr class="hover:bg-orange-100 transition transform hover:scale-101">
+            <!-- Nombre -->
+            <td class="px-6 py-4 flex items-center space-x-4">
+              <!-- Icono a la izquierda -->
+              <svg class="w-10 h-10 text-orange-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+                <circle cx="32" cy="16" r="12" fill="#f39c12"/>
+                <path d="M16 52c0-8 16-8 16-8s16 0 16 8v4H16v-4z" fill="#d35400"/>
+                <rect x="42" y="28" width="14" height="20" rx="2" ry="2" fill="#e67e22"/>
+                <line x1="44" y1="32" x2="54" y2="32" stroke="#f1c40f" stroke-width="2"/>
+                <line x1="44" y1="38" x2="54" y2="38" stroke="#f1c40f" stroke-width="2"/>
+                <line x1="44" y1="44" x2="54" y2="44" stroke="#f1c40f" stroke-width="2"/>
+              </svg>
+              <span class="font-semibold text-orange-800 text-lg"><%= proveedor.nombre %></span>
+            </td>
+
+            <!-- Teléfono -->
+            <td class="px-6 py-4 text-orange-700 text-lg"><%= proveedor.telefono || 'No asignado' %></td>
+
+            <!-- Correo -->
+            <td class="px-6 py-4 text-orange-700 text-lg"><%= proveedor.correo || 'No asignado' %></td>
+
+            <!-- Dirección -->
+            <td class="px-6 py-4 text-orange-700 text-lg"><%= proveedor.direccion || 'No asignado' %></td>
+
+            <!-- Acción -->
+            <td class="px-6 py-4 text-center">
+              <a href="/proveedores/editar/<%= proveedor.id_proveedor %>"
+                 class="bg-orange-500 text-white px-4 py-2 rounded-lg shadow 
+                 hover:bg-orange-600 transition-all font-semibold">
+                Modificar
+              </a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+</body>
+</html>

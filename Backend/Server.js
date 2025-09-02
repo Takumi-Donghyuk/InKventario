@@ -9,7 +9,13 @@ const { connectDB } = require('./Configuration/db.js');
 const session = require("express-session");
 const loginRoutes = require("./Rutas/login.js");
 const usuarioRoutes = require('./Rutas/Usuarios.js');
+const categoriaRoutes = require('./Rutas/Categorias.js');
+const marcaRoutes=require('./Rutas/Marcas.js');
+const proveedorRoutes=require('./Rutas/Proveedores.js')
+const productoRoutes=require('./Rutas/Productos.js')
 const adminRoutes = require("./Rutas/admin.js");
+const empleadoRoutes = require("./Rutas/empleado.js");
+
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -50,12 +56,17 @@ app.use('/login', loginRoutes);
   if (req.session && req.session.user) return next();
   return res.redirect('/login');
 }
-// Ruta de menú del administrador 
+
+// Rutas de menú de usuarios
 app.use("/admin", adminRoutes);
-//Rutas del CRUD de usuarios
+app.use("/empleado", empleadoRoutes);
+
+//Rutas de funcionalidades
 app.use('/usuarios', authMiddleware, usuarioRoutes);
-
-
+app.use('/categorias', authMiddleware, categoriaRoutes);
+app.use('/marcas', authMiddleware, marcaRoutes);
+app.use('/proveedores', authMiddleware, proveedorRoutes);
+app.use('/productos', authMiddleware, productoRoutes)
 
 
 

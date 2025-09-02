@@ -3,26 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de Administración</title>
+  <title>Panel de administración</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../Styles/menu_admin.css">
 </head>
 <body class="flex h-screen bg-gray-100">
   <!-- Menú lateral -->
   <div class="w-64 bg-blue-800 screen text-white flex flex-col">
     <!-- Logo / título -->
-    <div class="p-6 text-3xl font-bold">Papelería El Bunker</div>
+    <div class="p-6 text-2xl font-bold">Papelería El Bunker</div>
     <!-- Menú scrollable -->
       <nav class="flex-1 flex flex-col p-4 overflow-y-auto">
-       <a href="/usuarios/crear" class="p-2 rounded hover:bg-blue-700 text-xl">Crear Usuario</a>
-       <a href="/usuarios" class="p-2 rounded hover:bg-blue-700 text-xl">Consultar Usuarios</a>
-       <a href="/usuarios/editar" class="p-2 rounded hover:bg-blue-700 text-xl">Modificar Usuario</a>
-       <a href="/usuarios/eliminar" class="p-2 rounded hover:bg-blue-700 text-xl">Eliminar Usuario</a>
-
+       <a href="/usuarios/crear" class="p-2 rounded hover:bg-blue-700 text-l">Crear Usuario</a>
+       <a href="/usuarios" class="p-2 rounded hover:bg-blue-700 text-l">Consultar Usuarios</a>
+       <a href="/usuarios/editar" class="p-2 rounded hover:bg-blue-700 text-l">Modificar Usuario</a>
+       <a href="/usuarios/eliminar" class="p-2 rounded hover:bg-blue-700 text-l">Eliminar Usuario</a>
+       <a href="/categorias/crear" class="p-2 rounded hover:bg-blue-700 text-l">Crear Categoría</a>
+       <a href="/categorias" class="p-2 rounded hover:bg-blue-700 text-l">Consultar Categorías</a>
+       <a href="/categorias/editar" class="p-2 rounded hover:bg-blue-700 text-l">Modificar Categoría</a>
+       <a href="/categorias/eliminar" class="p-2 rounded hover:bg-blue-700 text-l">Eliminar Categoría</a>
+      <a href="/marcas/crear" class="p-2 rounded hover:bg-blue-700 text-l">Crear Marca</a>
+       <a href="/marcas" class="p-2 rounded hover:bg-blue-700 text-l">Consultar Marcas</a>
+       <a href="/marcas/editar" class="p-2 rounded hover:bg-blue-700 text-l">Modificar Marca</a>
+       <a href="/marcas/eliminar" class="p-2 rounded hover:bg-blue-700 text-l">Eliminar Marca</a>
+       <a href="/proveedores/crear" class="p-2 rounded hover:bg-blue-700 text-l">Crear Proveedor</a>
+       <a href="/proveedores" class="p-2 rounded hover:bg-blue-700 text-l">Consultar Proveedores</a>
+       <a href="/proveedores/editar" class="p-2 rounded hover:bg-blue-700 text-l">Modificar Proveedor</a>
+       <a href="/proveedores/eliminar" class="p-2 rounded hover:bg-blue-700 text-l">Eliminar Proveedor</a>
        <!-- Spacer para separar el botón de logout -->
        <div class="flex-1"></div>
 
        <!-- Botón de Cerrar Sesión -->
-       <a href="login/logout" class="p-2 rounded text-xl hover:bg-red-600 bg-red-500 text-white text-center">
+       <a href="login/logout" class="mt-6 p-2 rounded text-xl hover:bg-red-600 
+       bg-red-500 text-white text-center">    
        Cerrar Sesión
        </a>
       </nav>
@@ -38,27 +51,54 @@
       Salir
     </a>
   </header>
-    <h1 class="text-5xl font-bold mb-6">Bienvenido al Panel de Administración</h1>
-    <h1 class="text-3xl font-bold mb-6">Señor administrador</h1>
-    <p class="text-xl mb-6">Seleccione una opción del menú lateral para comenzar</p>
+    <h1 class="text-4xl font-bold mb-6 text-center">Bienvenido al Panel de Administración</h1>
+    <h1 class="text-3xl font-bold mb-6 text-center">Señor(a) administrador(a)</h1>
+    <p class="text-xl mb-6 text-center">Seleccione una opción del menú lateral para comenzar</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <!-- Caja 1 -->  
       <div class="bg-white shadow-lg rounded-lg p-6 text-center">
-       <h2 class="text-xl font-bold">Usuarios Totales</h2>
-       <p class="text-2xl mt-2">1</p>
+       <h2 class="text-xl font-bold">Su nombre</h2>
+       <p class="text-xl mt-2"><%= user.nombre %></p>
       </div>
       <!-- Caja 2 -->  
       <div class="bg-white shadow-lg rounded-lg p-6 text-center">
-       <h2 class="text-xl font-bold">Usuarios Activos</h2>
-       <p class="text-2xl mt-2">1</p>
+       <h2 class="text-xl font-bold">Su número de cédula</h2>
+       <p class="text-xl mt-2"><%= user.cedula %></p>
       </div>
       <!-- Caja 3 -->  
       <div class="bg-white shadow-lg rounded-lg p-6 text-center">
-        <h2 class="text-xl font-bold">Últimos Usuarios Registrados</h2>
-        <p class="text-2xl mt-2">1</p>
+        <h2 class="text-xl font-bold">Su teléfono</h2>
+        <p class="text-xl mt-2"><%= user.telefono %></p>
       </div>
     </div>
-  </div>
+<!-- Panel de Administración -->
+<div class="flex justify-center mt-40 space-x-96">
+  <!-- Ícono 1: Libro abierto -->
+  <svg class="w-48 h-56" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+    <rect x="8" y="20" width="48" height="28" rx="2" ry="2" fill="#f1c40f"/>
+    <rect x="12" y="16" width="40" height="6" rx="1" ry="1" fill="#e67e22"/>
+    <path d="M12 16v-6h40v6" fill="#3498db"/>
+    <circle cx="32" cy="8" r="6" fill="#2ecc71"/>
+  </svg>
+
+  <!-- Ícono 2: Carpeta -->
+  <svg class="w-48 h-48" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+    <rect x="10" y="24" width="44" height="24" rx="2" ry="2" fill="#3498db"/>
+    <path d="M10 24l8-8h20l8 8" fill="#2980b9"/>
+    <circle cx="32" cy="36" r="4" fill="#f1c40f"/>
+  </svg>
+
+  <!-- Ícono 3: Archivo / Documento -->
+  <svg class="w-48 h-48" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+    <rect x="12" y="18" width="40" height="36" rx="2" ry="2" fill="#2ecc71"/>
+    <path d="M12 18l8-8h24l8 8" fill="#27ae60"/>
+    <line x1="20" y1="28" x2="44" y2="28" stroke="#ffffff" stroke-width="2"/>
+    <line x1="20" y1="34" x2="44" y2="34" stroke="#ffffff" stroke-width="2"/>
+    <line x1="20" y1="40" x2="44" y2="40" stroke="#ffffff" stroke-width="2"/>
+  </svg>
+</div>
+
+</div>
 </body>
 </html>
 

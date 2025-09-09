@@ -62,7 +62,9 @@ router.get("/", async (req, res) => {
         p.url_imagen,
         c.nombre AS categoriaNombre,
         m.nombre AS marcaNombre,
-        pr.nombre AS proveedorNombre
+        pr.nombre AS proveedorNombre,
+        p.usuario_ultima_modificacion,
+        p.fecha_ultima_modificacion
       FROM Producto p
       LEFT JOIN Categoria c ON p.categoriaId = c.id_categoria
       LEFT JOIN Marca m ON p.marcaId = m.id_marca
@@ -92,7 +94,7 @@ router.get("/editar", async (req, res) => {
         c.nombre AS categoriaNombre,
         m.nombre AS marcaNombre,
         pr.nombre AS proveedorNombre
-      FROM Producto p
+      FROM Producto p 
       INNER JOIN Categoria c ON p.categoriaId = c.id_categoria
       INNER JOIN Marca m ON p.marcaId = m.id_marca
       INNER JOIN Proveedor pr ON p.proveedorId = pr.id_proveedor
@@ -140,18 +142,18 @@ router.get("/editar/:id", async (req, res) => {
 router.post('/editar/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre, precio, cantidad, categoriaId, marcaId, proveedorId, url_imagen } = req.body;
-
+    const { nombre, precio, categoriaId, marcaId, proveedorId, url_imagen } = req.body;
+    const usuario = req.session.user?.nombre;
     // Construir query dinámico para actualizar solo los campos enviados
     const updates = {};
     if (nombre) updates.nombre = nombre;
     if (precio) updates.precio = precio;
-    if (cantidad) updates.cantidad = cantidad;
     if (categoriaId) updates.categoriaId = categoriaId;
     if (marcaId) updates.marcaId = marcaId;
     if (proveedorId) updates.proveedorId = proveedorId;
     if (url_imagen) updates.url_imagen = url_imagen;
-
+    updates.usuario_ultima_modificacion = usuario;       
+    updates.fecha_ultima_modificacion   = new Date(); 
     if (Object.keys(updates).length === 0) {
       return res.status(400).send("No se enviaron campos para actualizar");
     }
@@ -201,6 +203,61 @@ router.post('/editar/:id', async (req, res) => {
   }
 });
 
+// Ruta para mostrar lista de productos para sumar stock
+router.get("/sumar", async (req, res) => {
+  try {
+    const result = await sql.query`SELECT id_producto, nombre, cantidad, url_imagen FROM Producto`;
+    const productos = result.recordset;
+    res.render("sumar_producto", { productos, user: req.session.user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error al cargar lista de productos");
+  }
+});
+
+// Mostrar formulario para sumar stock de un producto específico
+router.get("/sumar/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await sql.query`
+      SELECT id_producto, nombre, cantidad, url_imagen 
+      FROM Producto 
+      WHERE id_producto = ${id}
+    `;
+    const producto = result.recordset[0];
+
+    if (!producto) {
+      return res.status(404).send("Producto no encontrado");
+    }
+
+    // Renderiza la vista con el formulario para sumar stock
+    res.render("sumar_producto_id", { 
+      producto,
+      user: req.session.user 
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error del servidor");
+  }
+});
+
+// Procesar el formulario y sumar stock
+router.post("/sumar/:id", async (req, res) => {
+  const { id } = req.params;
+  const { cantidad_a_sumar } = req.body;
+
+  try {
+    await sql.query`
+      UPDATE Producto 
+      SET cantidad = cantidad + ${cantidad_a_sumar}
+      WHERE id_producto = ${id}
+    `;
+    res.redirect("/productos/sumar"); 
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error al actualizar la cantidad");
+  }
+});
 
 // Ruta GET: listar productos para eliminar
 router.get("/eliminar", async (req, res) => {

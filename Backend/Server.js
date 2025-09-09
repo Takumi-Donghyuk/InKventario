@@ -5,6 +5,7 @@ const app=express();
 const PORT=3000;
 const path = require('path');
 const cors = require("cors");
+const PDFDocument = require('pdfkit');
 const { connectDB } = require('./Configuration/db.js');
 const session = require("express-session");
 const loginRoutes = require("./Rutas/login.js");
@@ -15,7 +16,8 @@ const proveedorRoutes=require('./Rutas/Proveedores.js')
 const productoRoutes=require('./Rutas/Productos.js')
 const adminRoutes = require("./Rutas/admin.js");
 const empleadoRoutes = require("./Rutas/empleado.js");
-
+const reporteInventarioRouter = require("./Rutas/reporte_inventario.js");
+const cartaRoutes = require('./Rutas/Carta.js');
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -47,7 +49,7 @@ app.use(session({
 
 // Rutas
 app.get('/', (req, res) => {
-    res.send('Hola mundo');
+    res.render('general');
 });
 app.use('/login', loginRoutes);
 
@@ -66,10 +68,9 @@ app.use('/usuarios', authMiddleware, usuarioRoutes);
 app.use('/categorias', authMiddleware, categoriaRoutes);
 app.use('/marcas', authMiddleware, marcaRoutes);
 app.use('/proveedores', authMiddleware, proveedorRoutes);
-app.use('/productos', authMiddleware, productoRoutes)
-
-
-
+app.use('/productos', authMiddleware, productoRoutes);
+app.use('/reporteinventario', authMiddleware, reporteInventarioRouter)
+app.use('/carta', authMiddleware, cartaRoutes);
 
 
 

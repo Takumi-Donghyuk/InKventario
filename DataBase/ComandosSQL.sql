@@ -51,19 +51,15 @@ CREATE TABLE Producto (
     proveedorId INT NOT NULL,
     usuarioId INT NOT NULL,
     url_imagen NVARCHAR(1000) NOT NULL DEFAULT '',
+    usuario_ultima_modificacion VARCHAR(1000) NULL,
+    fecha_ultima_modificacion   DATETIME2 NULL,
     FOREIGN KEY (categoriaId) REFERENCES Categoria(id_categoria),
     FOREIGN KEY (marcaId) REFERENCES Marca(id_marca),
     FOREIGN KEY (proveedorId) REFERENCES Proveedor(id_proveedor),
     FOREIGN KEY (usuarioId) REFERENCES Usuario(id_usuario)
 );
 
--- Tabla Inventario
-CREATE TABLE Inventario (
-    productos VARCHAR(8000) NOT NULL, 
-    historial TEXT NOT NULL,          
-    stockMinimo INT NOT NULL,         
-    fechaActualizacion DATETIME NOT NULL 
-);
+
 
 -- Tabla Reporte
 CREATE TABLE Reporte (
@@ -75,24 +71,60 @@ CREATE TABLE Reporte (
 
 -- Tabla Venta
 CREATE TABLE Venta (
-    id_venta INT IDENTITY(1,1) PRIMARY KEY,   
-    productos VARCHAR(8000) NOT NULL,         
-    fecha DATETIME NOT NULL                   
+    id_venta INT PRIMARY KEY IDENTITY,
+    fecha DATETIME DEFAULT GETDATE(),
+    total DECIMAL(10,2)
 );
 
--- Tabla Factura
-CREATE TABLE Factura (
-    id_factura INT IDENTITY(1,1) PRIMARY KEY, 
-    venta INT NOT NULL,                        
-    fecha DATETIME NOT NULL,                   
-    subtotal DECIMAL(10,2) NOT NULL,          
-    impuestos DECIMAL(10,2) NOT NULL,        
-    descuentos DECIMAL(10,2) NULL,            
-    total DECIMAL(10,2) NOT NULL,             
-    nombreCliente VARCHAR(100) NOT NULL,      
-    cedulaCliente VARCHAR(20) NOT NULL,       
-    CONSTRAINT FK_Factura_Venta FOREIGN KEY (venta)
-        REFERENCES Venta(id_venta)
-        ON DELETE CASCADE 
-        ON UPDATE CASCADE
+-- Tabla De Detalles De Venta
+CREATE TABLE Detalle_venta (
+    id_detalle_venta INT PRIMARY KEY IDENTITY,
+    id_venta INT NOT NULL,
+    id_producto INT NOT NULL,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10,2) NOT NULL,
+    subtotal AS (cantidad * precio_unitario) PERSISTED,
+    FOREIGN KEY (id_venta) REFERENCES venta(id_venta),
+    FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
+);
+
+-- Tabla Compra
+CREATE TABLE Compra (
+    id_compra INT PRIMARY KEY IDENTITY,
+    fecha DATETIME DEFAULT GETDATE(),
+    total DECIMAL(10,2)
+);
+
+-- Tabla De Detalles De Compra
+CREATE TABLE Detalle_compra (
+    id_detalle_compra INT PRIMARY KEY IDENTITY,
+    id_compra INT NOT NULL,
+    id_producto INT NOT NULL,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10,2) NOT NULL,
+    subtotal AS (cantidad * precio_unitario) PERSISTED,
+    FOREIGN KEY (id_compra) REFERENCES compra(id_compra),
+    FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
+);
+
+-- Tabla De Historial De Inventario
+CREATE TABLE Movimiento_inventario (
+    id_movimiento INT PRIMARY KEY IDENTITY,
+    id_producto INT NOT NULL,
+    cantidad INT NOT NULL, -- puede ser + (entrada) o - (salida)
+    tipo_movimiento VARCHAR(50) NOT NULL, -- 'venta', 'compra', 'ajuste', etc.
+    fecha DATETIME DEFAULT GETDATE(),
+    id_detalle_venta INT NULL,
+    id_detalle_compra INT NULL,
+    FOREIGN KEY (id_producto) REFERENCES producto(id_producto),
+    FOREIGN KEY (id_detalle_venta) REFERENCES detalle_venta(id_detalle_venta),
+    FOREIGN KEY (id_detalle_compra) REFERENCES detalle_compra(id_detalle_compra)
+);
+
+-- Tabla De Stock Mínimo
+CREATE TABLE Stock_minimo (
+    id_stock_minimo INT PRIMARY KEY IDENTITY,
+    id_producto INT NOT NULL,
+    stock_minimo INT NOT NULL,
+    FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
 );

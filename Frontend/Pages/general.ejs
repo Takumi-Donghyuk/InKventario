@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Papelería El Bunker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .animated-bg {
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+    }
+    @keyframes gradientMove {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gray-900">
+  <div class="absolute inset-0 animated-bg bg-gradient-to-r from-purple-700 via-pink-500 to-orange-400 opacity-80"></div>
+  <div class="relative z-10 w-full max-w-4xl px-6">
+    <div class="text-center">
+      <div class="flex justify-center mb-6">
+  <img src="../Assets/Logopapeleria.jpg"
+       alt="Logo Papelería El Bunker"
+       class="w-64 h-64 object-cover rounded-full shadow-2xl ring-4 ring-white/30 hover:scale-105 transition-transform duration-500">
+</div>
+      <h1 class="text-5xl md:text-6xl font-extrabold text-white drop-shadow-lg">
+        Papelería <span class="text-yellow-300">El Bunker</span>
+      </h1>
+      <p class="mt-4 text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
+        Todo lo que necesitas en un solo lugar. Material escolar, de oficina y más.
+      </p>
+      <div class="mt-10 bg-white/10 backdrop-blur-xl rounded-3xl shadow-xl p-8 inline-block">
+        <h2 class="text-2xl font-semibold text-white mb-4">Bienvenido</h2>
+        <p class="text-white/80 mb-6">Acceda a su cuenta para gestionar las ventas e inventario de la papelería</p>
+        <a href="/login" class="inline-block px-8 py-3 bg-yellow-400 text-gray-900 font-bold rounded-full shadow hover:bg-yellow-300 hover:scale-105 transition-all duration-300">
+          Iniciar Sesión
+        </a>
+      </div>
+      <p class="mt-8 text-sm text-white/60">
+        © 2025 Papelería El Bunker – Todos los derechos reservados
+      </p>
+    </div>
+  </div>
+</body>
+</html>

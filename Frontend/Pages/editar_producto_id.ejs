@@ -45,9 +45,13 @@
 
             <!-- Cantidad -->
             <div>
-                <label for="cantidad" class="block text-red-800 mb-2 font-semibold">Cantidad *</label>
-                <input type="number" name="cantidad" value="<%= producto.cantidad %>" required
-                       class="w-full border border-red-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400 bg-red-50" />
+                <label for="cantidad" class="block text-red-800 mb-2 font-semibold">Cantidad (no editable)</label>
+                <input type="number" 
+                name="cantidad" 
+                disabled 
+                placeholder="El valor actual es <%= producto.cantidad %>, está guardado en el historial y no puede editarse"
+                class="w-full border border-red-300 rounded-xl px-4 py-3 focus:outline-none 
+                focus:ring-2 focus:ring-red-400 bg-red-50" />
             </div>
 
             <!-- Categoría -->

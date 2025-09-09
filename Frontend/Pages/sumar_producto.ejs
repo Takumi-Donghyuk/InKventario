@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Sumar stock</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-red-50 to-red-200 min-h-screen p-6">
+
+  <!-- Botón de regreso -->
+  <div class="w-full max-w-2xl mb-6 flex justify-center">
+    <a href="/admin" 
+       class="bg-red-500 text-white px-6 py-2 rounded-full 
+       shadow-lg hover:bg-red-600 transition-all transform hover:scale-105">
+       ⬅ Volver al panel principal
+    </a>
+  </div>
+
+  <main class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-extrabold text-red-800 mb-10 text-center">
+      Selecciona un producto para sumar stock
+    </h1>
+
+    <!-- Tabla de productos estilo elegante -->
+    <div class="bg-red-50 rounded-3xl shadow-xl overflow-hidden">
+      <table class="min-w-full table-auto border-collapse">
+        <thead class="bg-red-500 text-white">
+          <tr>
+            <th class="px-6 py-3 text-left text-lg font-semibold uppercase tracking-wide">Imagen</th>
+            <th class="px-6 py-3 text-left text-lg font-semibold uppercase tracking-wide">Nombre</th>
+            <th class="px-6 py-3 text-left text-lg font-semibold uppercase tracking-wide">Cantidad actual</th>
+            <th class="px-6 py-3 text-center text-lg font-semibold uppercase tracking-wide">Acción</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-red-200">
+          <% productos.forEach(producto => { %>
+          <tr class="hover:bg-red-100 transition transform hover:scale-101">
+
+            <!-- Imagen -->
+            <td class="px-6 py-4 text-center">
+              <% if (producto.url_imagen) { %>
+                <img src="<%= producto.url_imagen %>" alt="Imagen de <%= producto.nombre %>" 
+                     class="w-16 h-16 object-cover rounded-xl shadow-md mx-auto">
+              <% } else { %>
+                <span class="text-red-400 italic">Sin imagen</span>
+              <% } %>
+            </td>
+
+            <!-- Nombre -->
+            <td class="px-6 py-4 text-red-800 font-semibold text-lg"><%= producto.nombre %></td>
+
+            <!-- Cantidad actual -->
+            <td class="px-6 py-4 text-red-700 text-lg"><%= producto.cantidad %></td>
+
+            <!-- Botón sumar stock -->
+            <td class="px-6 py-4 text-center">
+              <a href="/productos/sumar/<%= producto.id_producto %>"
+                 class="bg-red-500 text-white px-4 py-2 rounded-lg shadow 
+                 hover:bg-red-600 transition-all font-semibold">
+                ➕ Sumar stock
+              </a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+</body>
+</html>

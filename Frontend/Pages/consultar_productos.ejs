@@ -51,12 +51,23 @@
             &nbsp;|&nbsp;
             <strong>Proveedor:</strong> <%= prod.proveedorNombre || 'Sin proveedor' %>
           </p>
+
+          <% if (prod.fecha_ultima_modificacion && prod.usuario_ultima_modificacion) { %>
+          <p class="text-gray-500 text-xs italic">
+          Última actualización:
+          <%= new Date(prod.fecha_ultima_modificacion).toLocaleString('es-CO', { dateStyle: 'short', timeStyle: 'short' }) %>
+          por <%= prod.usuario_ultima_modificacion %>
+          </p>
+          <% } else { %>
+          <p class="text-gray-400 text-xs italic">
+          (Sin modificaciones)
+          </p>
+          <% } %>
         </div>
 
       </div>
       <% }) %>
     </div>
   </main>
-
 </body>
 </html>

@@ -1,0 +1,106 @@
+<!-- frontend/pages/carta.html -->
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generar carta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col items-center gap-7 min-h-screen p-6">
+<a href="/admin" class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600">
+      ⬅ Volver al menú
+</a>
+<h1 class="text-2xl font-bold text-center">Generar carta al proveedor</h1>
+  
+
+  <form id="formulario" class="bg-white shadow rounded-xl p-6 w-full max-w-md space-y-4">
+    <div>
+        <label for="proveedorId" class="block mb-1 font-medium">Proveedor *</label>
+        <select name="proveedor" required
+                class="w-full border rounded px-3 py-2">
+          <option value="" disabled selected>Seleccione un proveedor</option>
+          <% proveedores.forEach(p => { %>
+            <option value="<%= p.nombre %>"><%= p.nombre %></option>
+          <% }) %>
+        </select>
+    </div>
+
+    <div>
+      <label class="block mb-1 font-medium">Remitente (No se puede editar)</label>
+      <input name="remitente" value="<%= user.nombre %>" required class="w-full 
+      border rounded px-3 py-2" readonly>
+    </div>
+
+    <div>
+      <label class="block mb-1 font-medium">Fecha *</label>
+      <input type="date" name="fecha" required class="w-full border rounded px-3 py-2">
+    </div>
+
+    <div>
+      <label class="block mb-1 font-medium">Ciudad *</label>
+      <input name="ciudad" class="w-full border rounded px-3 py-2" required>
+    </div>
+
+    <div>
+      <label class="block mb-1 font-medium">Producto(s) *</label>
+      <textarea 
+      required
+      name="producto" 
+      class="w-full border rounded px-1 py-1" 
+      rows="7" 
+      placeholder="Ingrese uno o varios productos"></textarea>
+    </div>
+
+    <button type="submit" class="w-full bg-blue-600 text-white rounded-lg py-2 shadow hover:bg-blue-700">
+      Generar carta
+    </button>
+  </form>
+
+  <script>
+const form = document.getElementById('formulario');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+  for (let key in data) {
+    if (typeof data[key] === 'string') {
+      data[key] = data[key].trim();
+    }
+  }
+
+  if (data.producto) {
+    data.producto = data.producto
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line)
+      .join('\n');
+  }
+  
+  const res = await fetch('/carta/generar_carta', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+
+  if (!res.ok) {
+    alert('Error al generar carta');
+    return;
+  }
+
+  
+  const blob = await res.blob();
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'carta.pdf';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(url);
+});
+
+  </script>
+</body>
+</html>

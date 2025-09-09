@@ -6,6 +6,72 @@
   <title>Panel de empleado</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../Styles/menu_admin.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <style>
+    .modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #111111bd;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .6s .9s;
+    }
+
+    .modal--show{
+      opacity: 1;
+      pointer-events: unset;
+      transition: opacity .6s;
+    }
+
+.contenedor_modal{
+    position: relative;
+    margin: auto;
+    width: 90%;
+    max-width: 600 px;
+    max-height: 90%;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 2em 1.5em;
+    display: grid;
+    gap: 2em;
+    place-items: center;
+    grid-auto-columns: 100%;
+}
+
+.contenedor_modal i {
+  font-size: 2rem; 
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer; 
+}
+
+.imagen_modal{
+  width: 90%;
+  max-width: 350px;
+}
+
+.titulo_modal {
+  font-size: 2rem;
+}
+
+.botonCerrarSesion, .botonCerrarModal{
+    background-color:rgb(255, 0, 0);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: background-color .3s;
+}
+
+.botonCerrarSesion:hover, .botonCerrarModal:hover{
+    background-color:rgb(200, 0, 0);
+}
+
+</style>
 </head>
 <body class="flex h-screen bg-gray-100">
   <!-- Menú lateral -->
@@ -14,16 +80,16 @@
     <div class="p-6 text-2xl font-bold">Papelería El Bunker</div>
     <!-- Menú scrollable -->
       <nav class="flex-1 flex flex-col p-4 overflow-y-auto">
-      <a href="/productos/crear" class="p-2 rounded hover:bg-blue-700 text-l">Crear Producto</a>
        <a href="/productos" class="p-2 rounded hover:bg-blue-700 text-l">Consultar Productos</a>
-       <a href="/productos/editar" class="p-2 rounded hover:bg-blue-700 text-l">Modificar Productos</a>
-       <a href="/productos/eliminar" class="p-2 rounded hover:bg-blue-700 text-l">Eliminar Productos</a>
+       <a href="/productos/sumar" class="p-2 rounded hover:bg-blue-700 text-l">Sumar Al Producto</a>
+       <a href="/reporteinventario" class="p-2 rounded hover:bg-blue-700 text-l">Generar reporte de inventario</a>
+       <a href="" class="p-2 rounded hover:bg-blue-700 text-l">Generar reporte de ventas</a>
        <!-- Spacer para separar el botón de logout -->
        <div class="flex-1"></div>
 
        <!-- Botón de Cerrar Sesión -->
        <a href="login/logout" class="mt-6 p-2 rounded text-xl hover:bg-red-600 
-       bg-red-500 text-white text-center">    
+       bg-red-500 text-white text-center boton_salir">    
        Cerrar Sesión
        </a>
       </nav>
@@ -35,7 +101,8 @@
     <p class="text-gray-700">
       Logueado como: <span class="font-semibold"><%= user ? user.correo : 'Invitado' %></span>
     </p>
-    <a href="/login/logout" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded transition">
+    <a href="/login/logout" class="bg-red-500 hover:bg-red-600 text-white
+     font-semibold px-4 py-2 rounded transition boton_salir">
       Salir
     </a>
   </header>
@@ -85,6 +152,36 @@
     <line x1="42" y1="20" x2="22" y2="44" stroke="#7f8c8d" stroke-width="4"/>
   </svg>
 </div>
+
+ <section class="modal">
+  <div class="contenedor_modal">
+    <i class="bi bi-x-circle boton_cerrar"></i>
+    <br>
+    <img src="Assets/store-closed-55.svg" class="imagen_modal">
+    <h2 class="titulo_modal">Gracias por visitar el aplicativo web de la papelería El Búnker</h2>  
+    <a href="/admin" class="botonCerrarModal">
+      Volver al panel principal</a>
+    <a href="/login/logout" class="botonCerrarSesion">Cerrar Sesión</a>
+    <br>
   </div>
+</section>
+  </div>
+  <script>
+const botonesSalir = document.querySelectorAll('.boton_salir');
+const modal=document.querySelector('.modal');
+const botonCerrar=document.querySelector('.boton_cerrar');
+
+botonesSalir.forEach(boton => {
+  boton.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.classList.add('modal--show');
+  });
+});
+
+botonCerrar.addEventListener('click', (e) => {
+  e.preventDefault();
+  modal.classList.remove('modal--show');
+});
+</script>
 </body>
 </html>

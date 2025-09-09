@@ -6,13 +6,76 @@
   <title>Panel de administración</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../Styles/menu_admin.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <style>
+    .modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #111111bd;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .6s .9s;
+    }
+
+    .modal--show{
+      opacity: 1;
+      pointer-events: unset;
+      transition: opacity .6s;
+    }
+
+.contenedor_modal{
+    position: relative;
+    margin: auto;
+    width: 90%;
+    max-width: 600 px;
+    max-height: 90%;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 2em 1.5em;
+    display: grid;
+    gap: 2em;
+    place-items: center;
+    grid-auto-columns: 100%;
+}
+
+.contenedor_modal i {
+  font-size: 2rem; 
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer; 
+}
+
+.imagen_modal{
+  width: 90%;
+  max-width: 350px;
+}
+
+.titulo_modal {
+  font-size: 2rem;
+}
+
+.botonCerrarSesion, .botonCerrarModal{
+    background-color:rgb(255, 0, 0);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: background-color .3s;
+}
+
+.botonCerrarSesion:hover, .botonCerrarModal:hover{
+    background-color:rgb(200, 0, 0);
+}
+
+</style>
 </head>
 <body class="flex h-screen bg-gray-100">
-  <!-- Menú lateral -->
   <div class="w-64 bg-blue-800 screen text-white flex flex-col">
-    <!-- Logo / título -->
     <div class="p-6 text-2xl font-bold">Papelería El Bunker</div>
-    <!-- Menú scrollable -->
       <nav class="flex-1 flex flex-col p-4 overflow-y-auto">
        <a href="/usuarios/crear" class="p-2 rounded hover:bg-blue-700 text-l">Crear Usuario</a>
        <a href="/usuarios" class="p-2 rounded hover:bg-blue-700 text-l">Consultar Usuarios</a>
@@ -30,12 +93,18 @@
        <a href="/proveedores" class="p-2 rounded hover:bg-blue-700 text-l">Consultar Proveedores</a>
        <a href="/proveedores/editar" class="p-2 rounded hover:bg-blue-700 text-l">Modificar Proveedor</a>
        <a href="/proveedores/eliminar" class="p-2 rounded hover:bg-blue-700 text-l">Eliminar Proveedor</a>
+       <a href="/productos/crear" class="p-2 rounded hover:bg-blue-700 text-l">Crear Producto</a>
+       <a href="/productos/sumar" class="p-2 rounded hover:bg-blue-700 text-l">Sumar Al Producto</a>
+       <a href="/productos" class="p-2 rounded hover:bg-blue-700 text-l">Consultar Productos</a>
+       <a href="/productos/editar" class="p-2 rounded hover:bg-blue-700 text-l">Modificar Producto</a>
+       <a href="/productos/eliminar" class="p-2 rounded hover:bg-blue-700 text-l">Eliminar Producto</a>
+       <a href="/carta/" class="p-2 rounded hover:bg-blue-700 text-l">Descargar Carta Al Proveedor</a>
        <!-- Spacer para separar el botón de logout -->
        <div class="flex-1"></div>
 
        <!-- Botón de Cerrar Sesión -->
-       <a href="login/logout" class="mt-6 p-2 rounded text-xl hover:bg-red-600 
-       bg-red-500 text-white text-center">    
+       <a class="mt-6 p-2 rounded text-xl hover:bg-red-600 
+       bg-red-500 text-white text-center cursor-pointer boton_salir">    
        Cerrar Sesión
        </a>
       </nav>
@@ -47,10 +116,11 @@
     <p class="text-gray-700">
       Logueado como: <span class="font-semibold"><%= user ? user.correo : 'Invitado' %></span>
     </p>
-    <a href="/login/logout" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded transition">
+    <a class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 
+    rounded transition cursor-pointer boton_salir">
       Salir
     </a>
-  </header>
+    </header>
     <h1 class="text-4xl font-bold mb-6 text-center">Bienvenido al Panel de Administración</h1>
     <h1 class="text-3xl font-bold mb-6 text-center">Señor(a) administrador(a)</h1>
     <p class="text-xl mb-6 text-center">Seleccione una opción del menú lateral para comenzar</p>
@@ -70,10 +140,10 @@
         <h2 class="text-xl font-bold">Su teléfono</h2>
         <p class="text-xl mt-2"><%= user.telefono %></p>
       </div>
-    </div>
-<!-- Panel de Administración -->
+  </div>
+
 <div class="flex justify-center mt-40 space-x-96">
-  <!-- Ícono 1: Libro abierto -->
+
   <svg class="w-48 h-56" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
     <rect x="8" y="20" width="48" height="28" rx="2" ry="2" fill="#f1c40f"/>
     <rect x="12" y="16" width="40" height="6" rx="1" ry="1" fill="#e67e22"/>
@@ -81,14 +151,13 @@
     <circle cx="32" cy="8" r="6" fill="#2ecc71"/>
   </svg>
 
-  <!-- Ícono 2: Carpeta -->
+
   <svg class="w-48 h-48" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
     <rect x="10" y="24" width="44" height="24" rx="2" ry="2" fill="#3498db"/>
     <path d="M10 24l8-8h20l8 8" fill="#2980b9"/>
     <circle cx="32" cy="36" r="4" fill="#f1c40f"/>
   </svg>
 
-  <!-- Ícono 3: Archivo / Documento -->
   <svg class="w-48 h-48" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
     <rect x="12" y="18" width="40" height="36" rx="2" ry="2" fill="#2ecc71"/>
     <path d="M12 18l8-8h24l8 8" fill="#27ae60"/>
@@ -98,7 +167,36 @@
   </svg>
 </div>
 
+ <section class="modal">
+  <div class="contenedor_modal">
+    <i class="bi bi-x-circle boton_cerrar"></i>
+    <br>
+    <img src="Assets/store-closed-55.svg" class="imagen_modal">
+    <h2 class="titulo_modal">Gracias por visitar el aplicativo web de la papelería El Búnker</h2>  
+    <a href="/admin" class="botonCerrarModal">
+      Volver al panel principal</a>
+    <a href="/login/logout" class="botonCerrarSesion">Cerrar Sesión</a>
+    <br>
+  </div>
+</section>
 </div>
+<script>
+const botonesSalir = document.querySelectorAll('.boton_salir');
+const modal=document.querySelector('.modal');
+const botonCerrar=document.querySelector('.boton_cerrar');
+
+botonesSalir.forEach(boton => {
+  boton.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.classList.add('modal--show');
+  });
+});
+
+botonCerrar.addEventListener('click', (e) => {
+  e.preventDefault();
+  modal.classList.remove('modal--show');
+});
+</script>
 </body>
 </html>
 

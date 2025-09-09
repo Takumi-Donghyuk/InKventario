@@ -34,10 +34,10 @@ connectDB();
 
 // Motor de plantillas EJS
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../frontend/pages'));
+app.set('views', path.join(__dirname, '../Frontend/Pages'));
 
 // Servir archivos estáticos
-app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, '../Frontend')));
 
 // Permitirá guardar sesiones en memoria
 app.use(session({
